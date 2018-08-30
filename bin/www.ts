@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+import { Request, Response } from 'express';
 
 // * Module dependencies.
 const app = require('../app');
@@ -14,7 +14,7 @@ app.set('port', port);
 
 
 // * Create HTTP server.
-const server = http.createServer(app).listen(port, (req, res) => {
+const server = http.createServer(app).listen(port, (req: Request, res: Response) => {
   helper.logSuc(figlet.textSync('MEAN-TS-STARTER', { horizontalLayout: 'full' }));
   helper.logSuc(`[SERVER] Running at ${port}`);
 });
@@ -23,7 +23,7 @@ const server = http.createServer(app).listen(port, (req, res) => {
 server.listen(port);
 
 // * Event listener for HTTP server "error" event.
-server.on('error', () => {
+server.on('error', (error: any) => {
   if (error.syscall !== 'listen') {
     throw error;
   }
