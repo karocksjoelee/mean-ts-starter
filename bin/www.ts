@@ -1,12 +1,11 @@
 import { Request, Response } from 'express';
 
 // * Module dependencies.
-const app = require('../app');
-const debug = require('debug')('mean-ts-starter:server');
 const http = require('http');
-const figlet = require('figlet');
 const helper = require('../utilities/helper');
-
+const debug = require('debug')('mean-ts-starter:server');
+const figlet = require('figlet');
+const app = require('../app');
 
 // * Get port from environment and store in Express.
 const port = helper.normalizePort(process.env.PORT || '7000');
