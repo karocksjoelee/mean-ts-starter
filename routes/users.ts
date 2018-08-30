@@ -5,7 +5,6 @@ const router: Router = express.Router();
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  console.log('TESTING----!!!!!!');
   res.send('respond with a resource');
 });
 
