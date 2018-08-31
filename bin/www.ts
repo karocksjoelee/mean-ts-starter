@@ -1,21 +1,34 @@
 import { Request, Response } from 'express';
+import { LogType } from '../utilities/interfaces';
 
 // * Module dependencies.
 const http = require('http');
 const helper = require('../utilities/helper');
 const debug = require('debug')('mean-ts-starter:server');
 const figlet = require('figlet');
+const config = require('../../config');
+const mongoose = require('mongoose');
 const app = require('../app');
 
 // * Get port from environment and store in Express.
 const port = helper.normalizePort(process.env.PORT || '7000');
 app.set('port', port);
 
+// * MongoDB Connection
+mongoose.connect(config.mongoDB.URI, { useNewUrlParser: true });
+mongoose.connection.on('connected', () => {
+  helper.logSuc(`${LogType.mongodb} Mongoose connected with ${config.mongoDB.URI}`);
+});
+mongoose.connection.on('error', (error: any) => {
+  helper.logErr(`${LogType.mongodb} MongoDB Connect Error :`);
+  helper.errLogger(error, LogType.mongodb);
+});
+
 
 // * Create HTTP server.
 const server = http.createServer(app).listen(port, (req: Request, res: Response) => {
   helper.logSuc(figlet.textSync('MEAN-TS-STARTER', { horizontalLayout: 'full' }));
-  helper.logSuc(`[SERVER] Running at ${port}`);
+  helper.logSuc(`${LogType.server} Running at ${port}`);
 });
 
 // * Listen on provided port, on all network interfaces.

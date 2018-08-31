@@ -1,7 +1,6 @@
 const gulp = require('gulp');
 const nodemon = require('gulp-nodemon');
 const ts = require('gulp-typescript');
-// const tsProject = ts.createProject('tsconfig.json');
 const chalk = require('chalk');
 
 const err = chalk.red.bold;
@@ -20,21 +19,20 @@ const path = {
 };
 
 
-
 gulp.task('default', ['message', 'typescript', 'watch', 'nodemon',]);
 
 gulp.task('message', () => {
-  return console.log(dev(`[GULP] is up and running ...`));
+  return console.log(dev(`[ GULP ] is up and running ...`));
 });
 
 gulp.task('watch',() => {
   gulp.watch(path.serverTypescriptFiles, ['typescript'])
       .on('change', () => {
-        console.log(warn('[GULP] Server Typescript Files Changed'));
+        console.log(warn('[ GULP ] Server Typescript Files Changed'));
       });
   gulp.watch(path.compileFiles)
       .on('change', () => {
-        console.log(warn('[GULP] Compiled Files Changed ...'));
+        console.log(warn('[ GULP ] Compiled Files Changed ...'));
       });
 });
 
@@ -43,16 +41,16 @@ gulp.task('nodemon', () => {
       script: './built/bin/www.js',
       ignore: ['src'],
   }).on('restart', () => {
-    console.log(warn('[GULP] Server Restarting ... '));
+    console.log(warn('[ GULP ] Server Restarting ... '));
   });
 });
 
 gulp.task('typescript', ()  => {
-  console.log(dev('[GULP] Typescript compiling ...'))
+  console.log(dev('[ GULP ] Typescript compiling ...'))
   return gulp.src(path.serverTypescriptFiles, {base: "."})
       .pipe(ts({
         noImplicitAny: true,
-        removeComments: true
+        removeComments: true,
       }))
       .pipe(gulp.dest('built/'));
 });

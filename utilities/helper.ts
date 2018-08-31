@@ -1,3 +1,5 @@
+import { LogType } from './interfaces';
+
 const chalk = require('chalk');
 const err = chalk.red.bold;
 const suc = chalk.green.bold;
@@ -18,6 +20,15 @@ module.exports.logWarn = function(msg: string) {
 
 module.exports.logDev = function(msg: string) {
   console.log(dev(objectStringify(msg)));
+};
+
+module.exports.errLogger = function(error: string, source?: string) {
+  if (!source) {
+    source = LogType.unknown;
+  }
+  this.logErr(`--------------------- ${source} -------------------------`);
+  console.log(error);
+  this.logErr(`---------------------------------------------------------------------`);
 };
 
 
