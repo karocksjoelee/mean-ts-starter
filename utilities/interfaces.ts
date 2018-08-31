@@ -6,3 +6,11 @@ export enum LogType {
   route = '[ ROUTE ]'
 }
 
+export enum MongoMethod {
+  save = '[ SAVE ]',
+  find = '[ FIND ]',
+  fineOne = '[ FIND-ONE ]',
+  update = '[ FIND-AND-UPDATE ]',
+  delete = '[ FIND-ANE-REMOVE ]'
+}
+

@@ -15,6 +15,9 @@ const port = helper.normalizePort(process.env.PORT || '7000');
 app.set('port', port);
 
 // * MongoDB Connection
+// ? https://github.com/Automattic/mongoose/issues/6922#issue-354147871
+mongoose.set('useFindAndModify', false);
+
 mongoose.connect(config.mongoDB.URI, { useNewUrlParser: true });
 mongoose.connection.on('connected', () => {
   helper.logSuc(`${LogType.mongodb} Mongoose connected with ${config.mongoDB.URI}`);

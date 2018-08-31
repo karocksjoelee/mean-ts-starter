@@ -12,6 +12,8 @@ export interface User {
   password: string;
   email: string;
   age: number;
+  _id?: string;
+  __v?: number;
 }
 
 module.exports = mongoose.model('User', User);
