@@ -10,7 +10,7 @@ const warn = chalk.yellow.bold;
 
 const path = {
   serverTypescriptFiles: [
-    'bin/**/*', 'routes/**/*', 'utilities/**/*', 'models/**/*', 'controllers/**/*' ,'./app.ts',
+    'bin/**/*', 'routes/**/*', 'utilities/**/*', 'utilities/code-generator/**/*','models/**/*', 'controllers/**/*' ,'./app.ts',
     '!node_modules/**', '!src/**/*', '!views/**', '!public/**/*', '!e2e/**/*', '!dist/**/*'
   ],
   compileFiles: [
