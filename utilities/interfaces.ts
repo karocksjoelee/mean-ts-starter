@@ -3,7 +3,8 @@ export enum LogType {
   gulp = '[ GULP ]',
   server = '[ SERVER ]',
   mongodb = '[ MONGO-DB ]',
-  route = '[ ROUTE ]'
+  route = '[ ROUTE ]',
+  codeGen = '[ CODE-GEN ]'
 }
 
 export enum MongoMethod {

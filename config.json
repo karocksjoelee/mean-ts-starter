@@ -1,5 +1,10 @@
 {
   "mongoDB": {
     "URI": "mongodb+srv://admin:0HqQZQOPPCvEzIjk@test-cluster-01-dotgx.gcp.mongodb.net/test?retryWrites=true"
+  },
+  "code-gen" : {
+    "mongo-crud-controller": true,
+    "angular-service": true,
+    "postman-json": true
   }
 }

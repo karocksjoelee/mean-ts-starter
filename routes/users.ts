@@ -3,12 +3,12 @@ import { User } from '../models/user.schema';
 import { Error } from 'mongoose';
 
 const express = require('express');
-const userController = require('../controllers/user.controller');
+const userGenController = require('../controllers/basic-crud/user.gen-controller');
 const helper = require('../utilities/helper');
 const router: Router = express.Router();
 
 router.post('/', (req: Request, res: Response) => {
-  userController.create(req.body).then((result: User) => {
+  userGenController.create(req.body).then((result: User) => {
     res.status(201).send(result);
   }).catch((err: Error) => {
     res.status(400).send({
@@ -20,7 +20,7 @@ router.post('/', (req: Request, res: Response) => {
 
 router.get('/(:id)?', (req: Request, res: Response) => {
   if (!req.params.id) {
-    userController.getAll().then((result: User[]) => {
+    userGenController.getAll().then((result: User[]) => {
       res.status(200).send(result);
     }).catch((err: Error) => {
       res.status(400).send({
@@ -29,7 +29,7 @@ router.get('/(:id)?', (req: Request, res: Response) => {
       });
     });
   } else {
-    userController.getOneById(req.params.id).then((result: User) => {
+    userGenController.getOneById(req.params.id).then((result: User) => {
       res.status(200).send(result);
     }).catch((err: Error) => {
       res.status(400).send({
@@ -47,7 +47,7 @@ router.put('/', (req: Request, res: Response) => {
       message: 'Update method requires _id for identify the absolute object'
     });
   } else {
-    userController.update(req.body).then((result: User) => {
+    userGenController.update(req.body).then((result: User) => {
       res.status(200).send(result);
     }).catch((err: Error) => {
       res.status(400).send({
@@ -65,7 +65,7 @@ router.delete('/:id', (req: Request, res: Response) => {
       message: 'Delete method requires _id for identify the absolute object'
     });
   } else {
-    userController.delete(req.params.id).then((result: User) => {
+    userGenController.delete(req.params.id).then((result: User) => {
       res.status(200).send(result);
     }).catch((err: Error) => {
       res.status(400).send({

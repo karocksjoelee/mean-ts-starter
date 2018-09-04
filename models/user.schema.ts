@@ -4,7 +4,9 @@ const User = new mongoose.Schema({
   username: String,
   password: String,
   email: String,
-  age: Number
+  age: Number,
+  createDate: { type: Date, default: Date.now },
+  testId : { type: mongoose.Schema.Types.ObjectId, ref: 'Test' },
 });
 
 export interface User {
@@ -12,6 +14,8 @@ export interface User {
   password: string;
   email: string;
   age: number;
+  createDate: Date;
+  testId: string;
   _id?: string;
   __v?: number;
 }
