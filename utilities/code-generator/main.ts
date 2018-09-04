@@ -13,8 +13,6 @@ fs.readdir(path.join(__dirname, '../../models'), (err: any, files: Array<string>
     console.error(err);
     return;
   }
-  console.log(files);
-  console.log(config);
   files.map((file: string) => {
     // * schemas contain all models with relative fields.
     schemas[helper.removeFileExt(file)] = require('../../models/' + file).schema.obj;
