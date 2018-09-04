@@ -1,6 +1,6 @@
 import { User } from '../../models/user.schema';
 import { Error } from 'mongoose';
-import { LogType, MongoMethod } from '../../utilities/interfaces';
+import { LogType } from '../../utilities/interfaces';
 
 const helper = require('../../utilities/helper');
 const User = require('../../models/user.schema');
