@@ -55,3 +55,17 @@ module.exports.getOneById = function(userId: string) {
   });
 };
 
+
+module.exports.update = function(userId: string, userObject: User) {
+  return new Promise((resolve, reject) => {
+    User.findOneAndUpdate(userId, userObject, {new: true}, (err: Error, updatedUser: User) => {
+      if (err) {
+        helper.errLogger(err, LogType.mongodb);
+        return reject(err);
+      }
+      helper.logSuc(`[ MONGO-DB ][ FIND-AND-UPDATE ] Updated User - ${updatedUser._id} !`);
+      return resolve(updatedUser);
+    });
+  });
+};
+

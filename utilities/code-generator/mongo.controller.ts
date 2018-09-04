@@ -33,6 +33,7 @@ const User = require('../../models/user.schema');
 ${createController(schemaName, schemaObject)}
 ${getAllController(schemaName)}
 ${getOneController(schemaName)}
+${updateController(schemaName)}
 `;
 }
 
@@ -92,6 +93,25 @@ module.exports.getOneById = function(${schemaNameLowerFL}Id: string) {
       }
       helper.logSuc(\`${LogType.mongodb}${MongoMethod.fineOne} Found User $\{${schemaNameLowerFL}._id\} !\`);
       return resolve(${schemaNameLowerFL});
+    });
+  });
+};
+`;
+}
+
+function updateController(schemaName: string) {
+  const schemaNameUpperFL = helper.upperFL(schemaName);
+  const schemaNameLowerFL = schemaName;
+  return `
+module.exports.update = function(${schemaNameLowerFL}Id: string, ${schemaNameLowerFL}Object: ${schemaNameUpperFL}) {
+  return new Promise((resolve, reject) => {
+    ${schemaNameUpperFL}.findOneAndUpdate(${schemaNameLowerFL}Id, ${schemaNameLowerFL}Object, {new: true}, (err: Error, updated${schemaNameUpperFL}: ${schemaNameUpperFL}) => {
+      if (err) {
+        helper.errLogger(err, LogType.mongodb);
+        return reject(err);
+      }
+      helper.logSuc(\`${LogType.mongodb}${MongoMethod.update} Updated User - $\{updated${schemaNameUpperFL}._id\} !\`);
+      return resolve(updated${schemaNameUpperFL});
     });
   });
 };

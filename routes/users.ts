@@ -40,14 +40,14 @@ router.get('/(:id)?', (req: Request, res: Response) => {
   }
 });
 
-router.put('/', (req: Request, res: Response) => {
-  if (!req.body._id) {
+router.put('/:id', (req: Request, res: Response) => {
+  if (!req.params.id) {
     return res.status(400).send({
       name: '_id is missing',
       message: 'Update method requires _id for identify the absolute object'
     });
   } else {
-    userGenController.update(req.body).then((result: User) => {
+    userGenController.update(req.params.id, req.body).then((result: User) => {
       res.status(200).send(result);
     }).catch((err: Error) => {
       res.status(400).send({
