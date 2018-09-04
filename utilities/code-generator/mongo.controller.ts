@@ -23,8 +23,6 @@ module.exports.generate = function(schemas: any) {
 function wirteControllerFile(schemaName: string, schemaObject: any) {
   const schemaNameUpperFL = helper.upperFL(schemaName);
   const schemaNameLowerFL = schemaName;
-  console.log('UpperFL: ', schemaNameUpperFL);
-  console.log('LowerFL: ', schemaNameLowerFL);
   return `import { ${schemaNameUpperFL} } from '../../models/${schemaNameLowerFL}.schema';
 import { Error } from 'mongoose';
 import { LogType, MongoMethod } from '../../utilities/interfaces';
@@ -33,8 +31,11 @@ const helper = require('../../utilities/helper');
 const User = require('../../models/user.schema');
 
 ${createController(schemaName, schemaObject)}
+${getAllController(schemaName)}
 `;
 }
+
+
 
 function createController(schemaName: string, schemaObject: any) {
   const schemaNameUpperFL = helper.upperFL(schemaName);
@@ -55,7 +56,25 @@ ${schemaAssign(`${schemaNameLowerFL}Object`, schemaObject)}
     });
   });
 };
+`;
+}
 
+function getAllController(schemaName: string) {
+  const schemaNameUpperFL = helper.upperFL(schemaName);
+  const schemaNameLowerFL = schemaName;
+  return `
+  module.exports.getAll = function() {
+    return new Promise((resolve, reject) => {
+      ${schemaNameUpperFL}.find({}, (err: Error, ${schemaNameLowerFL}s: ${schemaNameUpperFL}[]) => {
+        if (err) {
+          helper.errLogger(err, LogType.mongodb);
+          return reject(err);
+        }
+        helper.logSuc(\`${LogType.mongodb}${MongoMethod.find} Found 100 Users !\`);
+        return resolve(${schemaNameLowerFL}s);
+      });
+    });
+  };
 `;
 }
 
@@ -65,7 +84,7 @@ function schemaAssign(source: any, schemaObject: any) {
 
   for (let key in schemaObject) {
     if (schemaObject.hasOwnProperty(key)) {
-      assignTemplate += '\t\t\t' + key + ': ' + source + '.' + key + ',\n';
+      assignTemplate += '      ' + key + ': ' + source + '.' + key + ',\n';
     }
   }
   return assignTemplate.slice(0, -2);

@@ -9,12 +9,12 @@ const User = require('../../models/user.schema');
 module.exports.create = function(userObject: User) {
   return new Promise((resolve, reject) => {
     const newData = new User ({
-			username: userObject.username,
-			password: userObject.password,
-			email: userObject.email,
-			age: userObject.age,
-			createDate: userObject.createDate,
-			testId: userObject.testId
+      username: userObject.username,
+      password: userObject.password,
+      email: userObject.email,
+      age: userObject.age,
+      createDate: userObject.createDate,
+      testId: userObject.testId
     });
     newData.save((err: Error, newUser: User) => {
       if (err) {
@@ -27,4 +27,17 @@ module.exports.create = function(userObject: User) {
   });
 };
 
+
+  module.exports.getAll = function() {
+    return new Promise((resolve, reject) => {
+      User.find({}, (err: Error, users: User[]) => {
+        if (err) {
+          helper.errLogger(err, LogType.mongodb);
+          return reject(err);
+        }
+        helper.logSuc(`[ MONGO-DB ][ FIND ] Found 100 Users !`);
+        return resolve(users);
+      });
+    });
+  };
 
