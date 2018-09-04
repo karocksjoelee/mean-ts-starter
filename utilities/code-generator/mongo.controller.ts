@@ -32,11 +32,12 @@ const User = require('../../models/user.schema');
 
 ${createController(schemaName, schemaObject)}
 ${getAllController(schemaName)}
+${getOneController(schemaName)}
 `;
 }
 
 
-
+// * CRUD Controller Templates : (Private Functions)
 function createController(schemaName: string, schemaObject: any) {
   const schemaNameUpperFL = helper.upperFL(schemaName);
   const schemaNameLowerFL = schemaName;
@@ -63,18 +64,37 @@ function getAllController(schemaName: string) {
   const schemaNameUpperFL = helper.upperFL(schemaName);
   const schemaNameLowerFL = schemaName;
   return `
-  module.exports.getAll = function() {
-    return new Promise((resolve, reject) => {
-      ${schemaNameUpperFL}.find({}, (err: Error, ${schemaNameLowerFL}s: ${schemaNameUpperFL}[]) => {
-        if (err) {
-          helper.errLogger(err, LogType.mongodb);
-          return reject(err);
-        }
-        helper.logSuc(\`${LogType.mongodb}${MongoMethod.find} Found $\{${schemaNameLowerFL}s.length\} Users !\`);
-        return resolve(${schemaNameLowerFL}s);
-      });
+module.exports.getAll = function() {
+  return new Promise((resolve, reject) => {
+    ${schemaNameUpperFL}.find({}, (err: Error, ${schemaNameLowerFL}s: ${schemaNameUpperFL}[]) => {
+      if (err) {
+        helper.errLogger(err, LogType.mongodb);
+        return reject(err);
+      }
+      helper.logSuc(\`${LogType.mongodb}${MongoMethod.find} Found $\{${schemaNameLowerFL}s.length\} Users !\`);
+      return resolve(${schemaNameLowerFL}s);
     });
-  };
+  });
+};
+`;
+}
+
+function getOneController(schemaName: string) {
+  const schemaNameUpperFL = helper.upperFL(schemaName);
+  const schemaNameLowerFL = schemaName;
+  return `
+module.exports.getOneById = function(${schemaNameLowerFL}Id: string) {
+  return new Promise((resolve, reject) => {
+    ${schemaNameUpperFL}.findOne({_id: ${schemaNameLowerFL}Id}, (err: Error, ${schemaNameLowerFL}: ${schemaNameUpperFL}) => {
+      if (err) {
+        helper.errLogger(err, LogType.mongodb);
+        return reject(err);
+      }
+      helper.logSuc(\`${LogType.mongodb}${MongoMethod.fineOne} Found User $\{${schemaNameLowerFL}._id\} !\`);
+      return resolve(${schemaNameLowerFL});
+    });
+  });
+};
 `;
 }
 

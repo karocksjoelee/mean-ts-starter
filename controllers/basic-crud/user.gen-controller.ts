@@ -28,16 +28,30 @@ module.exports.create = function(userObject: User) {
 };
 
 
-  module.exports.getAll = function() {
-    return new Promise((resolve, reject) => {
-      User.find({}, (err: Error, users: User[]) => {
-        if (err) {
-          helper.errLogger(err, LogType.mongodb);
-          return reject(err);
-        }
-        helper.logSuc(`[ MONGO-DB ][ FIND ] Found ${users.length} Users !`);
-        return resolve(users);
-      });
+module.exports.getAll = function() {
+  return new Promise((resolve, reject) => {
+    User.find({}, (err: Error, users: User[]) => {
+      if (err) {
+        helper.errLogger(err, LogType.mongodb);
+        return reject(err);
+      }
+      helper.logSuc(`[ MONGO-DB ][ FIND ] Found ${users.length} Users !`);
+      return resolve(users);
     });
-  };
+  });
+};
+
+
+module.exports.getOneById = function(userId: string) {
+  return new Promise((resolve, reject) => {
+    User.findOne({_id: userId}, (err: Error, user: User) => {
+      if (err) {
+        helper.errLogger(err, LogType.mongodb);
+        return reject(err);
+      }
+      helper.logSuc(`[ MONGO-DB ][ FIND-ONE ] Found User ${user._id} !`);
+      return resolve(user);
+    });
+  });
+};
 
