@@ -7,6 +7,12 @@ export enum LogType {
   codeGen = '[ CODE-GEN ]'
 }
 
+export interface ErrorResponse {
+  status: number;
+  name: string;
+  message: string;
+}
+
 export enum MongoMethod {
   save = '[ SAVE ]',
   find = '[ FIND ]',

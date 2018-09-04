@@ -69,3 +69,26 @@ module.exports.update = function(userId: string, userObject: User) {
   });
 };
 
+
+module.exports.deleteOneById = function(userId: string) {
+  return new Promise((resolve, reject) => {
+    User.findByIdAndRemove(userId, (err: Error, deletedUser: User) => {
+      if (err) {
+        helper.errLogger(err, LogType.mongodb);
+        return reject(err);
+      }
+      if (deletedUser) {
+        helper.logWarn(`[ MONGO-DB ][ FIND-ANE-REMOVE ] Deleted User - ${deletedUser._id} !`);
+        resolve(deletedUser);
+      } else {
+        helper.errLogger('User Not Found!', LogType.mongodb);
+        reject({
+          status: 404,
+          name: 'Not Found',
+          message: 'Could not found User with userId'
+        });
+      }
+    });
+  });
+};
+

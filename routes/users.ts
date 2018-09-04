@@ -1,6 +1,7 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import { User } from '../models/user.schema';
 import { Error } from 'mongoose';
+import { ErrorResponse } from '../utilities/interfaces';
 
 const express = require('express');
 const userGenController = require('../controllers/basic-crud/user.gen-controller');
@@ -65,13 +66,20 @@ router.delete('/:id', (req: Request, res: Response) => {
       message: 'Delete method requires _id for identify the absolute object'
     });
   } else {
-    userGenController.delete(req.params.id).then((result: User) => {
+    userGenController.deleteOneById(req.params.id).then((result: User) => {
       res.status(200).send(result);
-    }).catch((err: Error) => {
-      res.status(400).send({
-        name: err.name,
-        message: err.message
-      });
+    }).catch((err: ErrorResponse) => {
+      if (err.status) {
+        res.status(err.status).send({
+          name: err.name,
+          message: err.message
+        });
+      } else {
+        res.status(400).send({
+          name: err.name,
+          message: err.message
+        });
+      }
     });
   }
 });

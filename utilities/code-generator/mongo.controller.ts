@@ -34,6 +34,7 @@ ${createController(schemaName, schemaObject)}
 ${getAllController(schemaName)}
 ${getOneController(schemaName)}
 ${updateController(schemaName)}
+${deleteController(schemaName)}
 `;
 }
 
@@ -112,6 +113,34 @@ module.exports.update = function(${schemaNameLowerFL}Id: string, ${schemaNameLow
       }
       helper.logSuc(\`${LogType.mongodb}${MongoMethod.update} Updated User - $\{updated${schemaNameUpperFL}._id\} !\`);
       return resolve(updated${schemaNameUpperFL});
+    });
+  });
+};
+`;
+}
+
+function deleteController(schemaName: string) {
+  const schemaNameUpperFL = helper.upperFL(schemaName);
+  const schemaNameLowerFL = schemaName;
+  return `
+module.exports.deleteOneById = function(${schemaNameLowerFL}Id: string) {
+  return new Promise((resolve, reject) => {
+    ${schemaNameUpperFL}.findByIdAndRemove(${schemaNameLowerFL}Id, (err: Error, deleted${schemaNameUpperFL}: ${schemaNameUpperFL}) => {
+      if (err) {
+        helper.errLogger(err, LogType.mongodb);
+        return reject(err);
+      }
+      if (deleted${schemaNameUpperFL}) {
+        helper.logWarn(\`${LogType.mongodb}${MongoMethod.delete} Deleted User - $\{deleted${schemaNameUpperFL}._id\} !\`);
+        resolve(deleted${schemaNameUpperFL});
+      } else {
+        helper.errLogger('${schemaNameUpperFL} Not Found!', LogType.mongodb);
+        reject({
+          status: 404,
+          name: 'Not Found',
+          message: 'Could not found ${schemaNameUpperFL} with ${schemaNameLowerFL}Id'
+        });
+      }
     });
   });
 };
