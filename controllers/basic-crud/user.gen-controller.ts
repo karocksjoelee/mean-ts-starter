@@ -35,7 +35,7 @@ module.exports.create = function(userObject: User) {
           helper.errLogger(err, LogType.mongodb);
           return reject(err);
         }
-        helper.logSuc(`[ MONGO-DB ][ FIND ] Found 100 Users !`);
+        helper.logSuc(`[ MONGO-DB ][ FIND ] Found ${users.length} Users !`);
         return resolve(users);
       });
     });

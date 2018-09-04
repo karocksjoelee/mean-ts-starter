@@ -70,7 +70,7 @@ function getAllController(schemaName: string) {
           helper.errLogger(err, LogType.mongodb);
           return reject(err);
         }
-        helper.logSuc(\`${LogType.mongodb}${MongoMethod.find} Found 100 Users !\`);
+        helper.logSuc(\`${LogType.mongodb}${MongoMethod.find} Found $\{${schemaNameLowerFL}s.length\} Users !\`);
         return resolve(${schemaNameLowerFL}s);
       });
     });
