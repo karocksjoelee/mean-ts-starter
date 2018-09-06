@@ -1,4 +1,5 @@
 {
+  "name": "MEAN-TS-STARTER",
   "mongoDB": {
     "URI": "mongodb+srv://admin:0HqQZQOPPCvEzIjk@test-cluster-01-dotgx.gcp.mongodb.net/test?retryWrites=true"
   },

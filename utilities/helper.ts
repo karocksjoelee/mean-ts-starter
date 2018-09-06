@@ -63,7 +63,7 @@ module.exports.getAllEndPoints = function(routerStacks: any) {
     // * Regular Route Handle
     if (layer.route) {
       if (Object.keys(layer.route.methods).length > 1) {
-        this.logWarn(`[ HELP][ ShowAllEndPoints ] Method is more than 1`);
+        this.logWarn(`[ HELP][ ShowAllEndPoints ] Line66: Method is more than 1 - ${layer.route.path}`);
       }
       result.push({
         method: Object.keys(layer.route.methods)[0].toUpperCase(),
@@ -73,17 +73,15 @@ module.exports.getAllEndPoints = function(routerStacks: any) {
       const test = '';
       const path = test.concat(split(layer.regexp));
       const replacedPath = replaceCommaAs(path, '/');
-      // console.log('PATH: ', replacedPath);
       layer.handle.stack.forEach((handler: any) => {
         const secondPath = split(handler.regexp);
         if (Object.keys(handler.route.methods).length > 1) {
-          this.logWarn(`[ HELP][ ShowAllEndPoints ] Method is more than 1`);
+          this.logWarn(`[ HELP][ ShowAllEndPoints ] Line80: Method is more than 1 - ${replacedPath + handler.route.path}`);
         }
         result.push({
           method: Object.keys(handler.route.methods)[0].toUpperCase(),
           path: replacedPath + handler.route.path
         });
-        // console.log('SecondPath: ', secondPath);
       });
     }
   });

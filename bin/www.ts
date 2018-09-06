@@ -30,7 +30,7 @@ mongoose.connection.on('error', (error: any) => {
 
 // * Create HTTP server.
 const server = http.createServer(app).listen(port, (req: Request, res: Response) => {
-  helper.logSuc(figlet.textSync('MEAN-TS-STARTER', { horizontalLayout: 'full' }));
+  helper.logSuc(figlet.textSync(`${config.name}`, { horizontalLayout: 'full' }));
   helper.logSuc(`${LogType.server} Running at ${port}`);
   const allRoutes = helper.getAllEndPoints(app._router.stack);
   console.log(allRoutes);

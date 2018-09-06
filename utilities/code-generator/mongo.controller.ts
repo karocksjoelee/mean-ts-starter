@@ -4,7 +4,6 @@ const helper = require('../helper');
 const fs = require('fs');
 const path = require('path');
 
-
 module.exports.generate = function(schemas: any) {
   for (let schemaName in schemas) {
     if (schemas.hasOwnProperty(schemaName)) {
