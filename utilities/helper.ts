@@ -36,7 +36,7 @@ module.exports.errLogger = function(error: string, source?: string) {
 module.exports.removeFileExt = function(filename: string) {
   if (typeof filename !== 'string') {
     this.logErr('[ HELPER ][ RemoveFileExt ] Input is not a string');
-    return;
+    return filename;
   }
   return this.upperFL(filename.slice(0, filename.indexOf('.')));
 };
@@ -44,7 +44,7 @@ module.exports.removeFileExt = function(filename: string) {
 module.exports.upperFL = function(filename: string) {
   if (typeof filename !== 'string') {
     this.logErr('[ HELPER ][ UpperFL ] Input is not a string');
-    return;
+    return filename;
   }
   return filename.charAt(0).toUpperCase() + filename.slice(1);
 };
@@ -52,7 +52,7 @@ module.exports.upperFL = function(filename: string) {
 module.exports.lowerFL = function(filename: string) {
   if (typeof filename !== 'string') {
     this.logErr('[ HELPER ][ LowerFL ] Input is not a string');
-    return;
+    return filename;
   }
   return filename.charAt(0).toLowerCase() + filename.slice(1);
 };
@@ -63,7 +63,7 @@ module.exports.getAllEndPoints = function(routerStacks: any) {
     // * Regular Route Handle
     if (layer.route) {
       if (Object.keys(layer.route.methods).length > 1) {
-        this.logWarn(`[ HELP][ ShowAllEndPoints ] Line66: Method is more than 1 - ${layer.route.path}`);
+        this.logErr(`[ HELPER ][ ShowAllEndPoints ] Line66: Method is more than 1 - ${layer.route.path}`);
       }
       result.push({
         method: Object.keys(layer.route.methods)[0].toUpperCase(),
@@ -76,7 +76,7 @@ module.exports.getAllEndPoints = function(routerStacks: any) {
       layer.handle.stack.forEach((handler: any) => {
         const secondPath = split(handler.regexp);
         if (Object.keys(handler.route.methods).length > 1) {
-          this.logWarn(`[ HELP][ ShowAllEndPoints ] Line80: Method is more than 1 - ${replacedPath + handler.route.path}`);
+          this.logErr(`[ HELPER ][ ShowAllEndPoints ] Line80: Method is more than 1 - ${replacedPath + handler.route.path}`);
         }
         result.push({
           method: Object.keys(handler.route.methods)[0].toUpperCase(),
