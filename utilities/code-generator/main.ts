@@ -3,7 +3,7 @@ import { LogType } from '../interfaces';
 const helper = require('../helper');
 const fs = require('fs');
 const path = require('path');
-const config = require('../../../config.json')['code-gen'];
+const codeGenConfig = require('../../../config.json')['code-gen'];
 const schemas: any = {};
 const mongoController = require('./mongo.controller');
 const strategyMap: any = {
@@ -28,8 +28,8 @@ fs.readdir(path.join(__dirname, '../../models'), (err: any, files: Array<string>
   files.map((file: string) => {
     // * schemas contain all models with relative fields.
     schemas[helper.removeFileExt(file)] = require('../../models/' + file).schema.obj;
-    Object.keys(config).map((serviceName: string) => {
-      if (config[serviceName]) {
+    Object.keys(codeGenConfig).map((serviceName: string) => {
+      if (codeGenConfig[serviceName]) {
         strategyMap[serviceName](schemas);
       }
     });
