@@ -6,6 +6,18 @@ const path = require('path');
 const config = require('../../../config.json')['code-gen'];
 const schemas: any = {};
 const mongoController = require('./mongo.controller');
+const strategyMap: any = {
+  'mongo-crud-controller': (mongodSchemas: any) => {
+    helper.logDev(`${LogType.codeGen} Generate Mongo Controller ...`);
+    return mongoController.generate(mongodSchemas);
+  },
+  'angular-service': () => {
+    return helper.logWarn(`${LogType.codeGen} Angular Service Generator Service is not available yet`);
+  },
+  'postman-json': () => {
+    return helper.logWarn(`${LogType.codeGen} Postman JSON Generator Service is not available yet`);
+  }
+};
 
 
 fs.readdir(path.join(__dirname, '../../models'), (err: any, files: Array<string>) => {
@@ -16,16 +28,11 @@ fs.readdir(path.join(__dirname, '../../models'), (err: any, files: Array<string>
   files.map((file: string) => {
     // * schemas contain all models with relative fields.
     schemas[helper.removeFileExt(file)] = require('../../models/' + file).schema.obj;
-    if (config['mongo-crud-controller']) {
-      helper.logDev(`${LogType.codeGen} Generate Mongo Controller ...`);
-      mongoController.generate(schemas);
-    }
-    if (config['angular-service']) {
-      helper.logWarn(`${LogType.codeGen} Angular Service Generator is not available yet.`);
-    }
-    if (config['postman-json']) {
-      helper.logWarn(`${LogType.codeGen} Postman Test JSON Generator is not available yet.`);
-    }
+    Object.keys(config).map((serviceName: string) => {
+      if (config[serviceName]) {
+        strategyMap[serviceName](schemas);
+      }
+    });
    });
 });
 
