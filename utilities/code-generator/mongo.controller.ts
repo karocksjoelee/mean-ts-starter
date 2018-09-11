@@ -11,7 +11,7 @@ module.exports.generate = function(schemas: any) {
       const createFsController = fs.createWriteStream(
         path.join(__dirname, `../../../controllers/basic-crud/${schemaNameLowerFL}.gen-controller.ts`)
       );
-      createFsController.write(wirteControllerFile(`${schemaNameLowerFL}`, schemas[schemaName]));
+      createFsController.write(writeControllerFile(`${schemaNameLowerFL}`, schemas[schemaName]));
       createFsController.end();
       helper.logDev(`${LogType.codeGen} ${schemaNameLowerFL}.gen-controller.ts generated !`);
     }
@@ -19,7 +19,7 @@ module.exports.generate = function(schemas: any) {
 };
 
 
-function wirteControllerFile(schemaName: string, schemaObject: any) {
+function writeControllerFile(schemaName: string, schemaObject: any) {
   const schemaNameUpperFL = helper.upperFL(schemaName);
   const schemaNameLowerFL = schemaName;
   return `import { ${schemaNameUpperFL} } from '../../models/${schemaNameLowerFL}.schema';

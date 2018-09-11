@@ -7,9 +7,9 @@ const codeGenConfig = require('../../../config.json')['code-gen'];
 const schemas: any = {};
 const mongoController = require('./mongo.controller');
 const strategyMap: any = {
-  'mongo-crud-controller': (mongodSchemas: any) => {
+  'mongo-crud-controller': (mongoSchemas: any) => {
     helper.logDev(`${LogType.codeGen} Generate Mongo Controller ...`);
-    return mongoController.generate(mongodSchemas);
+    return mongoController.generate(mongoSchemas);
   },
   'angular-service': () => {
     return helper.logWarn(`${LogType.codeGen} Angular Service Generator Service is not available yet`);
