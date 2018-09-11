@@ -10,6 +10,7 @@
     "experimentalDecorators": true,
     "target": "es6",
     "noImplicitAny": true,
+    "strictNullChecks": true,
     "removeComments": true,
     "typeRoots": [
       "node_modules/@types"

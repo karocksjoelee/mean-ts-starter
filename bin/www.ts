@@ -2,12 +2,14 @@ import { Request, Response } from 'express';
 import { LogType } from '../utilities/interfaces';
 
 // * Module dependencies.
-const http = require('http');
+import * as http from 'http';
+import * as figlet from 'figlet';
+import * as mongoose from 'mongoose';
+import * as debug from 'debug';
+debug('mean-ts-starter:server');
+
 const helper = require('../utilities/helper');
-const debug = require('debug')('mean-ts-starter:server');
-const figlet = require('figlet');
 const config = require('../../config');
-const mongoose = require('mongoose');
 const app = require('../app');
 
 // * Get port from environment and store in Express.
