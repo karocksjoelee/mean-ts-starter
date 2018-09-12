@@ -1,12 +1,12 @@
-import { Request, Response } from 'express';
-import { LogType } from '../utilities/interfaces';
-
 // * Module dependencies.
 import * as http from 'http';
 import * as figlet from 'figlet';
 import * as mongoose from 'mongoose';
 import * as debug from 'debug';
 debug('mean-ts-starter:server');
+
+import { Request, Response } from 'express';
+import { LogType } from '../utilities/interfaces';
 
 const helper = require('../utilities/helper');
 const config = require('../../config');

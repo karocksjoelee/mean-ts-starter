@@ -1,9 +1,10 @@
+import * as express from 'express';
+
 import { Router, Request, Response, NextFunction } from 'express';
 import { User } from '../models/user.schema';
 import { Error } from 'mongoose';
 import { ErrorResponse } from '../utilities/interfaces';
 
-const express = require('express');
 const userGenController = require('../controllers/basic-crud/user.gen-controller');
 const helper = require('../utilities/helper');
 const router: Router = express.Router();

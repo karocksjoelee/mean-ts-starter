@@ -1,10 +1,11 @@
-import { Router } from 'express';
+import * as express from 'express';
 
-const express = require('express');
+import { Router, Request, Response, NextFunction } from 'express';
+
 const router: Router = express.Router();
 
 /* GET home page. */
-router.get('/', (req, res, next) => {
+router.get('/', (req: Request, res: Response, next: NextFunction) => {
   res.render('index');
 });
 
