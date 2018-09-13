@@ -5,12 +5,12 @@ import * as mongoose from 'mongoose';
 import * as debug from 'debug';
 debug('mean-ts-starter:server');
 
-import { Request, Response } from 'express';
+import { Request, Response, Application } from 'express';
 import { LogType } from '../utilities/interfaces';
 
 const helper = require('../utilities/helper');
 const config = require('../../config');
-const app = require('../app');
+const app: Application = require('../app');
 
 // * Get port from environment and store in Express.
 const port = helper.normalizePort(process.env.PORT || '7000');

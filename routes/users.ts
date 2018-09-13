@@ -1,4 +1,5 @@
 import * as express from 'express';
+import * as _ from 'lodash';
 
 import { Router, Request, Response, NextFunction } from 'express';
 import { User } from '../models/user.schema';
@@ -10,35 +11,24 @@ const helper = require('../utilities/helper');
 const router: Router = express.Router();
 
 router.post('/', (req: Request, res: Response) => {
-  userGenController.create(req.body).then((result: User) => {
+  userGenController.create(req.body)
+  .then(() => {
+    throw new Error('test error');
+  })
+  .then((result: User) => {
     res.status(201).send(result);
-  }).catch((err: Error) => {
-    res.status(400).send({
-      name: err.name,
-      message: err.message
-    });
-  });
+  }).catch(_.partial(helper.rejectHandler, res));
 });
 
 router.get('/(:id)?', (req: Request, res: Response) => {
   if (!req.params.id) {
     userGenController.getAll().then((result: User[]) => {
       res.status(200).send(result);
-    }).catch((err: Error) => {
-      res.status(400).send({
-        name: err.name,
-        message: err.message
-      });
-    });
+    }).catch(helper.rejectHandler, res);
   } else {
     userGenController.getOneById(req.params.id).then((result: User) => {
       res.status(200).send(result);
-    }).catch((err: Error) => {
-      res.status(400).send({
-        name: err.name,
-        message: err.message
-      });
-    });
+    }).catch(_.partial(helper.rejectHandler, res));
   }
 });
 
@@ -51,12 +41,7 @@ router.put('/:id', (req: Request, res: Response) => {
   } else {
     userGenController.update(req.params.id, req.body).then((result: User) => {
       res.status(200).send(result);
-    }).catch((err: Error) => {
-      res.status(400).send({
-        name: err.name,
-        message: err.message
-      });
-    });
+    }).catch(_.partial(helper.rejectHandler, res));
   }
 });
 
@@ -69,19 +54,7 @@ router.delete('/:id', (req: Request, res: Response) => {
   } else {
     userGenController.deleteOneById(req.params.id).then((result: User) => {
       res.status(200).send(result);
-    }).catch((err: ErrorResponse) => {
-      if (err.status) {
-        res.status(err.status).send({
-          name: err.name,
-          message: err.message
-        });
-      } else {
-        res.status(400).send({
-          name: err.name,
-          message: err.message
-        });
-      }
-    });
+    }).catch(_.partial(helper.rejectHandler, res));
   }
 });
 

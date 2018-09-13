@@ -1,10 +1,13 @@
+// import * as createError from 'http-errors';
+import * as express from 'express';
+import * as cookieParser from 'cookie-parser';
+import * as logger from 'morgan';
+import * as path from 'path';
+
 import { NextFunction, Request, Response } from 'express';
 
 const createError = require('http-errors');
-const express = require('express');
-const path = require('path');
-const cookieParser = require('cookie-parser');
-const logger = require('morgan');
+// const express = require('express');
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');

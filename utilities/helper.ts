@@ -1,4 +1,5 @@
 import { LogType } from './interfaces';
+import { Response } from 'express';
 
 const chalk = require('chalk');
 const err = chalk.red.bold;
@@ -31,6 +32,20 @@ module.exports.errLogger = function(error: string, source?: string) {
   this.logErr(
     `---------------------------------------------------------------------`
   );
+};
+
+module.exports.rejectHandler = function(res: Response, error: any) {
+  if (error.status) {
+    res.status(error.status).send({
+      name: error.name,
+      message: error.message
+    });
+  } else {
+    res.status(400).send({
+      name: error.name,
+      message: error.message
+    });
+  }
 };
 
 module.exports.removeFileExt = function(filename: string) {
