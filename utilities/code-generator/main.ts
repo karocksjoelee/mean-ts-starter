@@ -16,6 +16,9 @@ const strategyMap: any = {
   },
   'postman-json': () => {
     return helper.logWarn(`${LogType.codeGen} Postman JSON Generator Service is not available yet`);
+  },
+  'swagger-json': () => {
+    return helper.logWarn(`${LogType.codeGen} Swagger JSON Generator Service is not available yet`);
   }
 };
 

@@ -6,6 +6,7 @@
   "code-gen" : {
     "mongo-crud-controller": true,
     "angular-service": true,
-    "postman-json": true
+    "postman-json": true,
+    "swagger-json": true
   }
 }

@@ -3,7 +3,6 @@ import * as http from 'http';
 import * as figlet from 'figlet';
 import * as mongoose from 'mongoose';
 import * as debug from 'debug';
-debug('mean-ts-starter:server');
 
 import { Request, Response, Application } from 'express';
 import { LogType } from '../utilities/interfaces';
@@ -11,6 +10,7 @@ import { LogType } from '../utilities/interfaces';
 const helper = require('../utilities/helper');
 const config = require('../../config');
 const app: Application = require('../app');
+debug(`${config.name.toLowerCase()}:server`);
 
 // * Get port from environment and store in Express.
 const port = helper.normalizePort(process.env.PORT || '7000');
