@@ -8,7 +8,6 @@ const schemas: any = {};
 const mongoController = require('./mongo.controller');
 const strategyMap: any = {
   'mongo-crud-controller': (mongoSchemas: any) => {
-    helper.logDev(`${LogType.codeGen} Generate Mongo Controller ...`);
     return mongoController.generate(mongoSchemas);
   },
   'angular-service': () => {
