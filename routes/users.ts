@@ -12,9 +12,6 @@ const router: Router = express.Router();
 
 router.post('/', (req: Request, res: Response) => {
   userGenController.create(req.body)
-  .then(() => {
-    throw new Error('test error');
-  })
   .then((result: User) => {
     res.status(201).send(result);
   }).catch(_.partial(helper.rejectHandler, res));
@@ -24,7 +21,7 @@ router.get('/(:id)?', (req: Request, res: Response) => {
   if (!req.params.id) {
     userGenController.getAll().then((result: User[]) => {
       res.status(200).send(result);
-    }).catch(helper.rejectHandler, res);
+    }).catch(_.partial(helper.rejectHandler, res));
   } else {
     userGenController.getOneById(req.params.id).then((result: User) => {
       res.status(200).send(result);
@@ -33,6 +30,7 @@ router.get('/(:id)?', (req: Request, res: Response) => {
 });
 
 router.put('/:id', (req: Request, res: Response) => {
+  // TODO Check if object contains _id field
   if (!req.params.id) {
     return res.status(400).send({
       name: '_id is missing',
