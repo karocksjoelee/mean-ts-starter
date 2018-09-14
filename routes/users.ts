@@ -3,8 +3,6 @@ import * as _ from 'lodash';
 
 import { Router, Request, Response, NextFunction } from 'express';
 import { User } from '../models/user.schema';
-import { Error } from 'mongoose';
-import { ErrorResponse } from '../utilities/interfaces';
 
 const userGenController = require('../controllers/basic-crud/user.gen-controller');
 const helper = require('../utilities/helper');
@@ -29,11 +27,13 @@ router.get('/(:id)?', (req: Request, res: Response) => {
   }
 });
 
-router.put('/:id', (req: Request, res: Response) => {
-  // TODO Check if object contains _id field
+router.put('/(:id)?', (req: Request, res: Response) => {
+  if ( '_id' in req.body) {
+    delete req.body._id;
+  }
   if (!req.params.id) {
     return res.status(400).send({
-      name: '_id is missing',
+      name: '_id is missing in url',
       message: 'Update method requires _id for identify the absolute object'
     });
   } else {
@@ -43,10 +43,10 @@ router.put('/:id', (req: Request, res: Response) => {
   }
 });
 
-router.delete('/:id', (req: Request, res: Response) => {
+router.delete('/(:id)?', (req: Request, res: Response) => {
   if (!req.params.id) {
     return res.status(404).send({
-      name: '_id is missing',
+      name: '_id is missing in url',
       message: 'Delete method requires _id for identify the absolute object'
     });
   } else {
