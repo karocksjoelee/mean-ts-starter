@@ -24,7 +24,7 @@ function writeControllerFile(schemaName: string, schemaObject: any) {
   const schemaNameLowerFL = schemaName;
   return `import { ${schemaNameUpperFL} } from '../../models/${schemaNameLowerFL}.schema';
 import { Error } from 'mongoose';
-import { LogType } from '../../utilities/interfaces';
+import { LogType, MongoMethod } from '../../utilities/interfaces';
 
 const helper = require('../../utilities/helper');
 const User = require('../../models/user.schema');
@@ -53,7 +53,7 @@ ${schemaAssign(`${schemaNameLowerFL}Object`, schemaObject)}
         helper.errLogger(err, LogType.mongodb);
         return reject(err);
       }
-      helper.logSuc(\`${LogType.mongodb}${MongoMethod.save} New ${schemaNameUpperFL} Created !\`);
+      helper.logSuc(\`$\{LogType.mongodb}$\{MongoMethod.save} New ${schemaNameUpperFL} Created !\`);
       return resolve(new${schemaNameUpperFL});
     });
   });
@@ -72,7 +72,7 @@ module.exports.getAll = function() {
         helper.errLogger(err, LogType.mongodb);
         return reject(err);
       }
-      helper.logSuc(\`${LogType.mongodb}${MongoMethod.find} Found $\{${schemaNameLowerFL}s.length\} Users !\`);
+      helper.logSuc(\`$\{LogType.mongodb}$\{MongoMethod.find} Found $\{${schemaNameLowerFL}s.length\} Users !\`);
       return resolve(${schemaNameLowerFL}s);
     });
   });
@@ -91,7 +91,7 @@ module.exports.getOneById = function(${schemaNameLowerFL}Id: string) {
         helper.errLogger(err, LogType.mongodb);
         return reject(err);
       }
-      helper.logSuc(\`${LogType.mongodb}${MongoMethod.fineOne} Found User $\{${schemaNameLowerFL}._id\} !\`);
+      helper.logSuc(\`$\{LogType.mongodb}$\{MongoMethod.fineOne} Found User $\{${schemaNameLowerFL}._id\} !\`);
       return resolve(${schemaNameLowerFL});
     });
   });
@@ -110,7 +110,7 @@ module.exports.update = function(${schemaNameLowerFL}Id: string, ${schemaNameLow
         helper.errLogger(err, LogType.mongodb);
         return reject(err);
       }
-      helper.logSuc(\`${LogType.mongodb}${MongoMethod.update} Updated User - $\{updated${schemaNameUpperFL}._id\} !\`);
+      helper.logSuc(\`$\{LogType.mongodb}$\{MongoMethod.update} Updated User - $\{updated${schemaNameUpperFL}._id\} !\`);
       return resolve(updated${schemaNameUpperFL});
     });
   });
@@ -130,7 +130,7 @@ module.exports.deleteOneById = function(${schemaNameLowerFL}Id: string) {
         return reject(err);
       }
       if (deleted${schemaNameUpperFL}) {
-        helper.logWarn(\`${LogType.mongodb}${MongoMethod.delete} Deleted User - $\{deleted${schemaNameUpperFL}._id\} !\`);
+        helper.logWarn(\`$\{LogType.mongodb}$\{MongoMethod.delete} Deleted User - $\{deleted${schemaNameUpperFL}._id\} !\`);
         resolve(deleted${schemaNameUpperFL});
       } else {
         helper.errLogger('${schemaNameUpperFL} Not Found!', LogType.mongodb);

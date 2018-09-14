@@ -1,6 +1,6 @@
 import { User } from '../../models/user.schema';
 import { Error } from 'mongoose';
-import { LogType } from '../../utilities/interfaces';
+import { LogType, MongoMethod } from '../../utilities/interfaces';
 
 const helper = require('../../utilities/helper');
 const User = require('../../models/user.schema');
@@ -21,7 +21,7 @@ module.exports.create = function(userObject: User) {
         helper.errLogger(err, LogType.mongodb);
         return reject(err);
       }
-      helper.logSuc(`[ MONGO-DB ][ SAVE ] New User Created !`);
+      helper.logSuc(`${LogType.mongodb}${MongoMethod.save} New User Created !`);
       return resolve(newUser);
     });
   });
@@ -35,7 +35,7 @@ module.exports.getAll = function() {
         helper.errLogger(err, LogType.mongodb);
         return reject(err);
       }
-      helper.logSuc(`[ MONGO-DB ][ FIND ] Found ${users.length} Users !`);
+      helper.logSuc(`${LogType.mongodb}${MongoMethod.find} Found ${users.length} Users !`);
       return resolve(users);
     });
   });
@@ -49,7 +49,7 @@ module.exports.getOneById = function(userId: string) {
         helper.errLogger(err, LogType.mongodb);
         return reject(err);
       }
-      helper.logSuc(`[ MONGO-DB ][ FIND-ONE ] Found User ${user._id} !`);
+      helper.logSuc(`${LogType.mongodb}${MongoMethod.fineOne} Found User ${user._id} !`);
       return resolve(user);
     });
   });
@@ -63,7 +63,7 @@ module.exports.update = function(userId: string, userObject: User) {
         helper.errLogger(err, LogType.mongodb);
         return reject(err);
       }
-      helper.logSuc(`[ MONGO-DB ][ FIND-AND-UPDATE ] Updated User - ${updatedUser._id} !`);
+      helper.logSuc(`${LogType.mongodb}${MongoMethod.update} Updated User - ${updatedUser._id} !`);
       return resolve(updatedUser);
     });
   });
@@ -78,7 +78,7 @@ module.exports.deleteOneById = function(userId: string) {
         return reject(err);
       }
       if (deletedUser) {
-        helper.logWarn(`[ MONGO-DB ][ FIND-ANE-REMOVE ] Deleted User - ${deletedUser._id} !`);
+        helper.logWarn(`${LogType.mongodb}${MongoMethod.delete} Deleted User - ${deletedUser._id} !`);
         resolve(deletedUser);
       } else {
         helper.errLogger('User Not Found!', LogType.mongodb);

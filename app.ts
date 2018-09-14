@@ -29,7 +29,11 @@ app.use('/api/user', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req: Request, res: Response, next: NextFunction) {
-  next(createError(404));
+  return res.status(404).send({
+    status: 404,
+    name: 'Route Not Found',
+    message: `Route ${req.url} not found , please check your application`
+  });
 });
 
 // error handler
