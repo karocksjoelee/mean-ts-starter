@@ -1,10 +1,11 @@
-import { LogType, MongoMethod } from '../interfaces';
+import { LogType } from '../interfaces';
 
 const helper = require('../helper');
 const fs = require('fs');
 const path = require('path');
 
 module.exports.generate = function(schemas: any) {
+  helper.logDev(`${LogType.codeGen} Generate Mongo Controller ...`);
   for (let schemaName in schemas) {
     if (schemas.hasOwnProperty(schemaName)) {
       const schemaNameLowerFL = helper.lowerFL(schemaName);
