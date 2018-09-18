@@ -72,37 +72,6 @@ module.exports.lowerFL = function(filename: string) {
   return filename.charAt(0).toLowerCase() + filename.slice(1);
 };
 
-module.exports.getAllEndPoints = function(routerStacks: any) {
-  const result: any = [];
-  routerStacks.map((layer: any) => {
-    // * Regular Route Handle
-    if (layer.route) {
-      if (Object.keys(layer.route.methods).length > 1) {
-        this.logErr(`[ HELPER ][ ShowAllEndPoints ] Line66: Method is more than 1 - ${layer.route.path}`);
-      }
-      result.push({
-        method: Object.keys(layer.route.methods)[0].toUpperCase(),
-        path: layer.route.path
-      });
-    } else if (layer.name === 'router' && layer.handle.stack) {
-      const test = '';
-      const path = test.concat(split(layer.regexp));
-      const replacedPath = replaceCommaAs(path, '/');
-      layer.handle.stack.forEach((handler: any) => {
-        const secondPath = split(handler.regexp);
-        if (Object.keys(handler.route.methods).length > 1) {
-          this.logErr(`[ HELPER ][ ShowAllEndPoints ] Line80: Method is more than 1 - ${replacedPath + handler.route.path}`);
-        }
-        result.push({
-          method: Object.keys(handler.route.methods)[0].toUpperCase(),
-          path: replacedPath + handler.route.path
-        });
-      });
-    }
-  });
-  return result;
-};
-
 // * Normalize a port into a number, string, or false.
 module.exports.normalizePort = function(val: any) {
   const port = parseInt(val, 10);
@@ -129,31 +98,7 @@ function objectStringify(string: any) {
   }
 }
 
-function split(thing: any) {
-  if (typeof thing === 'string') {
-    return thing.split('/');
-  } else if (thing.fast_slash) {
-    return '';
-  } else {
-    let match = thing
-      .toString()
-      .replace('\\/?', '')
-      .replace('(?=\\/|$)', '$')
-      .match(/^\/\^((?:\\[.*+?^${}()|[\]\\\/]|[^.*+?^${}()|[\]\\\/])*)\$\//);
-    return match
-      ? match[1].replace(/\\(.)/g, '$1').split('/')
-      : '<complex:' + thing.toString() + '>';
-  }
-}
 
-function replaceCommaAs(target: string, replacement: string) {
-  if (typeof target === 'string' && typeof replacement === 'string') {
-    return target.split(',').join(replacement);
-  } else {
-    this.logErr('[ HELPER ][ ReplaceCommaAs ] Input is not string');
-    return target;
-  }
-}
 
 
 

@@ -7,12 +7,6 @@ export enum LogType {
   codeGen = '[ CODE-GEN ]'
 }
 
-export interface ErrorResponse {
-  status: number;
-  name: string;
-  message: string;
-}
-
 export enum MongoMethod {
   save = '[ SAVE ]',
   find = '[ FIND ]',
@@ -21,3 +15,13 @@ export enum MongoMethod {
   delete = '[ FIND-ANE-REMOVE ]'
 }
 
+export interface ErrorResponse {
+  status: number;
+  name: string;
+  message: string;
+}
+
+export interface APIEndPoint {
+  method: string;
+  path: string;
+}

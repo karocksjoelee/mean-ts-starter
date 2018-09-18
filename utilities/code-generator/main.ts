@@ -1,4 +1,4 @@
-import { LogType } from '../interfaces';
+import { LogType, APIEndPoint } from '../interfaces';
 
 const helper = require('../helper');
 const fs = require('fs');
@@ -37,5 +37,6 @@ fs.readdir(path.join(__dirname, '../../models'), (err: any, files: Array<string>
     });
    });
 });
+
 
 helper.logDev(`${LogType.codeGen} Code Generator Running ....`);

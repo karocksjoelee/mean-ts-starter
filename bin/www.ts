@@ -10,6 +10,7 @@ import { LogType } from '../utilities/interfaces';
 const helper = require('../utilities/helper');
 const config = require('../../config');
 const app: Application = require('../app');
+const swaggerCodeGen = require('../utilities/code-generator/swagger-json');
 debug(`${config.name.toLowerCase()}:server`);
 
 // * Get port from environment and store in Express.
@@ -34,8 +35,9 @@ mongoose.connection.on('error', (error: any) => {
 const server = http.createServer(app).listen(port, (req: Request, res: Response) => {
   helper.logSuc(figlet.textSync(`${config.name}`, { horizontalLayout: 'full' }));
   helper.logSuc(`${LogType.server} Running at ${port}`);
-  const allRoutes = helper.getAllEndPoints(app._router.stack);
-  console.log(allRoutes);
+  // CodeGen : Swagger JSON
+  const allRoutes = swaggerCodeGen.getAllEndPoints(app._router.stack);
+  swaggerCodeGen.generate(allRoutes);
 });
 
 // * Listen on provided port, on all network interfaces.

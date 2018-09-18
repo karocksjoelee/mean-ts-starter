@@ -56,4 +56,8 @@ router.delete('/(:id)?', (req: Request, res: Response) => {
   }
 });
 
+router.get('/authorized', (req: Request, res: Response) => {
+  res.status(200).send('Authorized User');
+});
+
 module.exports = router;
