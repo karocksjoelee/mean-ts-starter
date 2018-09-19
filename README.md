@@ -30,7 +30,7 @@ v8.9.4
 $ npm install -g @angular/cli
 ```
 
-4.   Development Enviroment: ( ver. 1.2.0 ) 
+4.   Development Enviroment: ( ver. 0.2.0 ) 
 
 ```console
 Angular CLI: 6.1.5
@@ -82,7 +82,7 @@ $ ng build --watch
 ```
 This allows angular-cli to compile your angular application into dist folder. 
 
-If you need Mongo DB ( In this project , we don't ) :
+If you need Mongo DB :
 ```sh
 $ mongod
 ```
