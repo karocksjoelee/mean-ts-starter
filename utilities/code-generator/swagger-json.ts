@@ -67,7 +67,7 @@ function replaceCommaAs(target: string, replacement: string) {
   if (typeof target === 'string' && typeof replacement === 'string') {
     return target.split(',').join(replacement);
   } else {
-    this.logErr('[ HELPER ][ ReplaceCommaAs ] Input is not string');
+    this.logErr(`${LogType.codeGen}[ ReplaceCommaAs ] Input is not string`);
     return target;
   }
 }

@@ -35,7 +35,7 @@ mongoose.connection.on('error', (error: any) => {
 const server = http.createServer(app).listen(port, (req: Request, res: Response) => {
   helper.logSuc(figlet.textSync(`${config.name}`, { horizontalLayout: 'full' }));
   helper.logSuc(`${LogType.server} Running at ${port}`);
-  // CodeGen : Swagger JSON
+  // * CodeGen : Swagger JSON
   const allRoutes = swaggerCodeGen.getAllEndPoints(app._router.stack);
   swaggerCodeGen.generate(allRoutes);
 });
