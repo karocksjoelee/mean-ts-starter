@@ -1,7 +1,7 @@
 {
   "name": "MEAN-TS-STARTER",
   "mongoDB": {
-    "URI": "mongodb+srv://admin:0HqQZQOPPCvEzIjk@test-cluster-01-dotgx.gcp.mongodb.net/test?retryWrites=true"
+    "URI": "mongodb://localhost:27017/mean-ts-starter"
   },
   "code-gen" : {
     "mongo-crud-controller": true,
