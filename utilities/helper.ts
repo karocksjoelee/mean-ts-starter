@@ -7,23 +7,23 @@ const suc = chalk.green.bold;
 const dev = chalk.magenta.bold;
 const warn = chalk.yellow.bold;
 
-module.exports.logErr = function(msg: string) {
+export const logErr = function(msg: string) {
   console.log(err(objectStringify(msg)));
 };
 
-module.exports.logSuc = function(msg: string) {
+export const logSuc = function(msg: string) {
   console.log(suc(objectStringify(msg)));
 };
 
-module.exports.logWarn = function(msg: string) {
+export const logWarn = function(msg: string) {
   console.log(warn(objectStringify(msg)));
 };
 
-module.exports.logDev = function(msg: string) {
+export const logDev = function(msg: string) {
   console.log(dev(objectStringify(msg)));
 };
 
-module.exports.errLogger = function(error: string, source?: string) {
+export const errLogger = function(error: string | Error, source?: string) {
   if (!source) {
     source = LogType.unknown;
   }
@@ -34,7 +34,7 @@ module.exports.errLogger = function(error: string, source?: string) {
   );
 };
 
-module.exports.rejectHandler = function(res: Response, error: any) {
+export const rejectHandler = function(res: Response, error: any) {
   if (error.status) {
     res.status(error.status).send({
       name: error.name,
@@ -48,7 +48,7 @@ module.exports.rejectHandler = function(res: Response, error: any) {
   }
 };
 
-module.exports.removeFileExt = function(filename: string) {
+export const removeFileExt = function(filename: string) {
   if (typeof filename !== 'string') {
     this.logErr('[ HELPER ][ RemoveFileExt ] Input is not a string');
     return filename;
@@ -56,7 +56,7 @@ module.exports.removeFileExt = function(filename: string) {
   return this.upperFL(filename.slice(0, filename.indexOf('.')));
 };
 
-module.exports.upperFL = function(filename: string) {
+export const upperFL = function(filename: string) {
   if (typeof filename !== 'string') {
     this.logErr('[ HELPER ][ UpperFL ] Input is not a string');
     return filename;
@@ -64,7 +64,7 @@ module.exports.upperFL = function(filename: string) {
   return filename.charAt(0).toUpperCase() + filename.slice(1);
 };
 
-module.exports.lowerFL = function(filename: string) {
+export const lowerFL = function(filename: string) {
   if (typeof filename !== 'string') {
     this.logErr('[ HELPER ][ LowerFL ] Input is not a string');
     return filename;
@@ -73,7 +73,7 @@ module.exports.lowerFL = function(filename: string) {
 };
 
 // * Normalize a port into a number, string, or false.
-module.exports.normalizePort = function(val: any) {
+export const normalizePort = function(val: any) {
   const port = parseInt(val, 10);
 
   if (isNaN(port)) {

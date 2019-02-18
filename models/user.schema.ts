@@ -1,4 +1,5 @@
-const mongoose = require('mongoose');
+
+import * as mongoose from 'mongoose';
 
 const User = new mongoose.Schema({
   username: String,
@@ -8,6 +9,8 @@ const User = new mongoose.Schema({
   createDate: { type: Date, default: Date.now },
   testId : { type: mongoose.Schema.Types.ObjectId, ref: 'Test' },
 });
+
+export default User;
 
 export interface User {
   username: string;
