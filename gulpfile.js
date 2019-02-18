@@ -1,4 +1,3 @@
-const config = require('./config');
 const gulp = require('gulp');
 const nodemon = require('gulp-nodemon');
 const ts = require('gulp-typescript');
@@ -21,6 +20,8 @@ const path = {
     expressApp: ['app.ts'],
     mongoModels: ['models/*']
   },
+  // * Change this, if you want your own folder name .
+  serverTSCompiledDest: 'output',
   compiledFiles: [
     'built/**', 'dist/**'
   ]
@@ -32,60 +33,72 @@ function copy() {
 }
 
 function compileBin() {
-  console.log(dev('[ GULP ] [ TS ] Compiling bin/www.ts'));
+  if (false) {
+    console.log(dev('[ GULP ] [ TS ] Compiling bin/www.ts'));
+  }
   return gulp.src(path.serverTypescriptFiles.bin)
     .pipe(ts())
-    .pipe(gulp.dest('output/bin/'));
+    .pipe(gulp.dest(`${path.serverTSCompiledDest}/bin/`));
 }
 
 function compileControlllers() {
-  console.log(dev('[ GULP ] [ TS ] Compiling controller/**/*.ts'));
+  if (false) {
+    console.log(dev('[ GULP ] [ TS ] Compiling controller/**/*.ts'));
+  }
   return gulp.src(path.serverTypescriptFiles.controllers)
     .pipe(ts())
-    .pipe(gulp.dest('output/controllers/'));
+    .pipe(gulp.dest(`${path.serverTSCompiledDest}/controllers/`));
 }
 
 function compileRoutes() {
-  console.log(dev('[ GULP ] [ TS ] Compiling routes/**.ts'));
+  if (false) {
+    console.log(dev('[ GULP ] [ TS ] Compiling routes/**.ts'));
+  }
   return gulp.src(path.serverTypescriptFiles.routes)
     .pipe(ts())
-    .pipe(gulp.dest('output/routes/'));
+    .pipe(gulp.dest(`${path.serverTSCompiledDest}/routes/`));
 }
 
 function compileUtilities() {
-  console.log(dev('[ GULP ] [ TS ] Compiling routes/**.ts'));
+  if (false) {
+    console.log(dev('[ GULP ] [ TS ] Compiling routes/**.ts'));
+  }
   return gulp.src(path.serverTypescriptFiles.utilities)
     .pipe(ts())
-    .pipe(gulp.dest('output/utilities/'));
+    .pipe(gulp.dest(`${path.serverTSCompiledDest}/utilities/`));
 }
 
 function compileExpressApp() {
-  console.log(dev('[ GULP ] [ TS ] Compiling app.ts'));
+  if (false) {
+    console.log(dev('[ GULP ] [ TS ] Compiling app.ts'));
+  }
   return gulp.src(path.serverTypescriptFiles.expressApp)
     .pipe(ts())
-    .pipe(gulp.dest('output/'));
+    .pipe(gulp.dest(`${path.serverTSCompiledDest}/`));
 }
 
 function compileMongoSchema() {
-  console.log(dev('[ GULP ] [ TS ] Compiling models/**'));
+  if (false) {
+    console.log(dev('[ GULP ] [ TS ] Compiling models/**'));
+  }
   return gulp.src(path.serverTypescriptFiles.mongoModels)
     .pipe(ts())
-    .pipe(gulp.dest('output/models/'));
+    .pipe(gulp.dest(`${path.serverTSCompiledDest}/models/`));
+}
+
+function compileTS() {
+  console.log(dev('[ GULP ][ TS ] Compiling server files to typescript ...'));
+  return gulp.parallel(compileExpressApp, compileBin,
+    compileControlllers, compileRoutes, compileUtilities,
+    compileMongoSchema
+  );
 }
 
 
 
 
 gulp.task('copy', copy);
-gulp.task('compile:ts', gulp.parallel(
-              compileExpressApp,
-              compileBin,
-              compileControlllers,
-              compileRoutes,
-              compileUtilities,
-              compileMongoSchema
-            )
-          );
+gulp.task('compile:ts', compileTS());
 
 
 
@@ -115,13 +128,4 @@ gulp.task('compile:ts', gulp.parallel(
 //   });
 // });
 
-// gulp.task('typescript', ()  => {
-//   console.log(dev('[ GULP ] Typescript compiling ...'))
-//   return gulp.src(path.serverTypescriptFiles, {base: "."})
-//       .pipe(ts({
-//         noImplicitAny: true,
-//         removeComments: true,
-//       }))
-//       .pipe(gulp.dest('built/'));
-// });
 
