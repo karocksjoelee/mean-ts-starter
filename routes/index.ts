@@ -6,7 +6,9 @@ const router: Router = express.Router();
 
 /* GET home page. */
 router.get('/', (req: Request, res: Response, next: NextFunction) => {
-  res.render('index');
+  console.log('TESTTTT');
+  res.status(200).send('Hello Joe !!');
+  // res.render('index');
 });
 
 module.exports = router;

@@ -27,10 +27,9 @@ const path = {
   ]
 };
 
-function copy() {
-  return gulp.src(path.compiledFiles)
-    .pipe(gulp.dest('output/'));
-}
+gulp.task('compile:ts', compileTS());
+gulp.task('default', gulp.parallel(watchServerFiles, server));
+
 
 function compileBin() {
   if (false) {
@@ -94,11 +93,43 @@ function compileTS() {
   );
 }
 
+function watchServerFiles() {
+  const allFiles = [];
+  Object.keys(path.serverTypescriptFiles).map((objectKey, index) => {
+    allFiles.push(path.serverTypescriptFiles[objectKey][0]);
+  });
+  console.log(allFiles);
+  browserSync.init({
+    open: 'external',
+    proxy: 'localhost',
+    port: 7000
+  });
+  gulp.watch(allFiles, gulp.series(compileTS));
+  gulp.watch(path.compiledFiles).on('change', browserSync.reload, server);
+}
+
+function server() {
+  const stream = nodemon({
+    script: './output/bin/www.js',
+    ignore: ['src']
+  });
+  return stream
+    .on('start', () => {
+      console.log(dev('[ GULP ] Starting server'));
+      compileTS();
+      browserSync.reload();
+    })
+    .on('restart', () => {
+      console.log(dev('[ GULP ] Restaring server'));
+    })
+    .on('crash', () => {
+      // TODO Log Crash timing
+      console.log(err('[ GULP ] Server crashed, restart in 5 second'));
+      stream.emit('restart', 5);
+    });
+}
 
 
-
-gulp.task('copy', copy);
-gulp.task('compile:ts', compileTS());
 
 
 
