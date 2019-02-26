@@ -6,9 +6,15 @@ const router: Router = express.Router();
 
 /* GET home page. */
 router.get('/', (req: Request, res: Response, next: NextFunction) => {
-  console.log('TESTTTT');
+  console.log('TEST');
   res.status(200).send('Hello Joe !!');
   // res.render('index');
 });
+
+router.get('/api/', (req: Request, res: Response, next: NextFunction) => {
+  res.status(200).send('Hello Joeerrrddd11rr~~~!!');
+});
+
+
 
 module.exports = router;

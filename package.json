@@ -8,7 +8,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "gen": "node ./built/utilities/code-generator/main"
+    "gen": "node ./built/utilities/code-generator/main",
+    "list-port": "lsof -i tcp:7000"
   },
   "private": true,
   "dependencies": {
@@ -39,7 +40,7 @@
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.13.0",
     "@angular/cli": "~7.3.0",
-    "@angular/compiler-cli": "^7.2.5",
+    "@angular/compiler-cli": "^7.2.6",
     "@angular/language-service": "^7.2.3",
     "@types/cookie-parser": "^1.4.1",
     "@types/debug": "0.0.30",
@@ -56,6 +57,7 @@
     "@types/node": "~8.9.4",
     "browser-sync": "^2.26.3",
     "codelyzer": "~4.2.1",
+    "del": "^3.0.0",
     "gulp": "^4.0.0",
     "gulp-changed": "^3.2.0",
     "gulp-nodemon": "^2.4.2",

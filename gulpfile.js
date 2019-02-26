@@ -1,9 +1,9 @@
 const gulp = require('gulp');
 const nodemon = require('gulp-nodemon');
 const ts = require('gulp-typescript');
-const changed = require('gulp-changed');
 const browserSync = require('browser-sync').create();
 const reload = browserSync.reload;
+const del = require('del');
 const chalk = require('chalk');
 
 const err = chalk.red.bold;
@@ -21,14 +21,14 @@ const path = {
     mongoModels: ['models/*']
   },
   // * Change this, if you want your own folder name .
-  serverTSCompiledDest: 'output',
+  serverTSCompiledDest: 'built',
   compiledFiles: [
     'built/**', 'dist/**'
   ]
 };
 
 gulp.task('compile:ts', compileTS());
-gulp.task('default', gulp.parallel(watchServerFiles, server));
+gulp.task('default', gulp.parallel(watchServerTSFiles, nodemons));
 
 
 function compileBin() {
@@ -85,6 +85,10 @@ function compileMongoSchema() {
     .pipe(gulp.dest(`${path.serverTSCompiledDest}/models/`));
 }
 
+function clean() {
+  return del(['built']);
+}
+
 function compileTS() {
   console.log(dev('[ GULP ][ TS ] Compiling server files to typescript ...'));
   return gulp.parallel(compileExpressApp, compileBin,
@@ -93,43 +97,22 @@ function compileTS() {
   );
 }
 
-function watchServerFiles() {
-  const allFiles = [];
-  Object.keys(path.serverTypescriptFiles).map((objectKey, index) => {
-    allFiles.push(path.serverTypescriptFiles[objectKey][0]);
-  });
-  console.log(allFiles);
-  browserSync.init({
-    open: 'external',
-    proxy: 'localhost',
-    port: 7000
-  });
-  gulp.watch(allFiles, gulp.series(compileTS));
-  gulp.watch(path.compiledFiles).on('change', browserSync.reload, server);
-}
-
-function server() {
-  const stream = nodemon({
-    script: './output/bin/www.js',
-    ignore: ['src']
-  });
-  return stream
-    .on('start', () => {
-      console.log(dev('[ GULP ] Starting server'));
-      compileTS();
-      browserSync.reload();
-    })
-    .on('restart', () => {
-      console.log(dev('[ GULP ] Restaring server'));
-    })
-    .on('crash', () => {
-      // TODO Log Crash timing
-      console.log(err('[ GULP ] Server crashed, restart in 5 second'));
-      stream.emit('restart', 5);
-    });
+function watchServerTSFiles() {
+  gulp.watch(['bin/www.ts','controllers/**/*',
+              'routes/**', 'utilities/**','utilities/*.ts',
+              'app.ts','models/*', '!built/**'], gulp.series(clean, gulp.parallel(compileExpressApp, compileBin,
+                compileControlllers, compileRoutes, compileUtilities,
+                compileMongoSchema)));
 }
 
 
+function nodemons(done) {
+  nodemon({
+    script: './built/bin/www.js',
+    watch: path.compiledFiles,
+  });
+  done();
+}
 
 
 
