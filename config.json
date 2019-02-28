@@ -9,8 +9,5 @@
     "angular-service": true,
     "postman-json": true,
     "swagger-json": true
-  },
-  "logger": {
-    "verbose": true
   }
 }
