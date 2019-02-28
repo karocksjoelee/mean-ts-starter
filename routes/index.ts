@@ -12,7 +12,7 @@ router.get('/', (req: Request, res: Response, next: NextFunction) => {
 });
 
 router.get('/api/', (req: Request, res: Response, next: NextFunction) => {
-  res.status(200).send('Hello Joeerrrddd11rr~~~!!');
+  res.status(200).send('Hello Joeerrrddd11rrrrrrr~~~!!');
 });
 
 

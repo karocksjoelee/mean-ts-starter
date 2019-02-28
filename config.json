@@ -1,5 +1,6 @@
 {
   "name": "MEAN-TS-STARTER",
+  "dev-server-port": 7000,
   "mongoDB": {
     "URI": "mongodb://localhost:27017/mean-ts-starter"
   },

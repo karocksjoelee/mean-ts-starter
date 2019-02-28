@@ -14,7 +14,7 @@ const swaggerCodeGen = require('../utilities/code-generator/swagger-json');
 debug(`${config.name.toLowerCase()}:server`);
 
 // * Get port from environment and store in Express.
-const port = helper.normalizePort(process.env.PORT || '7000');
+const port = helper.normalizePort(process.env.PORT || `${config['dev-server-port']}`);
 app.set('port', port);
 
 // * MongoDB Connection

@@ -2,9 +2,9 @@ const gulp = require('gulp');
 const nodemon = require('gulp-nodemon');
 const ts = require('gulp-typescript');
 const browserSync = require('browser-sync').create();
-const reload = browserSync.reload;
 const del = require('del');
 const chalk = require('chalk');
+const config = require('./config.json');
 
 const err = chalk.red.bold;
 const suc = chalk.green.bold;
@@ -28,7 +28,7 @@ const path = {
 };
 
 gulp.task('compile:ts', compileTS());
-gulp.task('default', gulp.parallel(watchServerTSFiles, nodemons));
+gulp.task('default', gulp.parallel(watchServerTSFiles, watchAngular, nodemons, browserSyncInit));
 
 
 function compileBin() {
@@ -105,12 +105,31 @@ function watchServerTSFiles() {
                 compileMongoSchema)));
 }
 
+function watchAngular() {
+  gulp.watch(['dist/mean-ts-starter/*'], browserReload);
+}
+
 
 function nodemons(done) {
   nodemon({
     script: './built/bin/www.js',
     watch: path.compiledFiles,
   });
+  done();
+}
+
+function browserSyncInit(done) {
+  browserSync.init({
+    proxy: `http://localhost:${config['dev-server-port']}`,
+    ui: {
+      port: 8080
+    }
+  });
+  done();
+}
+
+function browserReload(done) {
+  browserSync.reload();
   done();
 }
 
