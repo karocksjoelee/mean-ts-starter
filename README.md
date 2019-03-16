@@ -30,7 +30,7 @@ v8.12.0
 $ npm install -g @angular/cli
 ```
 
-4.   Development Enviroment Check : ( ver. 0.2.0 )
+4.   Development Enviroment Check : ( ver. 0.3.0 )
 
 ```sh
 $ ng version
