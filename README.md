@@ -103,6 +103,6 @@ Open Chrome and go to localhost:7000, this should render basic Angular App.
 
 ## Project Documents
 
-- [Version Change Logs](www.github.com)
+- [Version Change Logs](https://github.com/karocksjoelee/mean-ts-starter/blob/master/CHANGELOG.md)
 
 
