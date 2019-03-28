@@ -13,8 +13,7 @@ module.exports.create = function(userObject: User) {
       password: userObject.password,
       email: userObject.email,
       age: userObject.age,
-      createDate: userObject.createDate,
-      testId: userObject.testId
+      createDate: userObject.createDate
     });
     newData.save((err: Error, newUser: User) => {
       if (err) {

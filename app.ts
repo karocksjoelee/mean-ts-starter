@@ -25,7 +25,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../dist/mean-ts-starter'))); // Point to Angular App's folder
 
 app.use('/', indexRouter);
-app.use('/api/user', usersRouter);
+app.use('/api/users', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req: Request, res: Response, next: NextFunction) {
