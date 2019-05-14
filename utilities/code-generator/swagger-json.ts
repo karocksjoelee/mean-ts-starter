@@ -1,11 +1,9 @@
 import { LogType, APIEndPoint } from '../interfaces';
+import * as helper from '../helper';
 
-const helper = require('../helper');
-const fs = require('fs');
-const path = require('path');
 const codeGenConfig = require('../../../config.json')['code-gen'];
 
-module.exports.generate = function(allEndPoints: APIEndPoint[]) {
+export function generate(allEndPoints: APIEndPoint[]) {
   if (codeGenConfig['swagger-json']) {
     helper.logWarn(`${LogType.codeGen} Swagger JSON Generator Service is not available yet`);
   } else {
@@ -14,7 +12,7 @@ module.exports.generate = function(allEndPoints: APIEndPoint[]) {
 };
 
 
-module.exports.getAllEndPoints = function(routerStacks: any) {
+export function getAllEndPoints(routerStacks: any) {
   const result: any = [];
   routerStacks.map((layer: any) => {
     // * Regular Route Handle

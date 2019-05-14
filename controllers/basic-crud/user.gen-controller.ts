@@ -1,12 +1,11 @@
 import { User } from '../../models/user.schema';
 import { Error } from 'mongoose';
 import { LogType, MongoMethod } from '../../utilities/interfaces';
+import * as helper from '../../utilities/helper';
 
-const helper = require('../../utilities/helper');
 const User = require('../../models/user.schema');
 
-
-module.exports.create = function(userObject: User) {
+export function create(userObject: User) {
   return new Promise((resolve, reject) => {
     const newData = new User ({
       username: userObject.username,
@@ -27,7 +26,7 @@ module.exports.create = function(userObject: User) {
 };
 
 
-module.exports.getAll = function() {
+export function getAll() {
   return new Promise((resolve, reject) => {
     User.find({}, (err: Error, users: User[]) => {
       if (err) {
@@ -41,7 +40,7 @@ module.exports.getAll = function() {
 };
 
 
-module.exports.getOneById = function(userId: string) {
+export function getOneById(userId: string) {
   return new Promise((resolve, reject) => {
     User.findOne({_id: userId}, (err: Error, user: User) => {
       if (err) {
@@ -55,7 +54,7 @@ module.exports.getOneById = function(userId: string) {
 };
 
 
-module.exports.update = function(userId: string, userObject: User) {
+export function update(userId: string, userObject: User) {
   return new Promise((resolve, reject) => {
     User.findOneAndUpdate(userId, userObject, {new: true}, (err: Error, updatedUser: User) => {
       if (err) {
@@ -69,7 +68,7 @@ module.exports.update = function(userId: string, userObject: User) {
 };
 
 
-module.exports.deleteOneById = function(userId: string) {
+export function deleteOneById(userId: string) {
   return new Promise((resolve, reject) => {
     User.findByIdAndRemove(userId, (err: Error, deletedUser: User) => {
       if (err) {

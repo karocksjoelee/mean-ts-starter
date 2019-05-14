@@ -4,8 +4,9 @@ import * as _ from 'lodash';
 import { Router, Request, Response, NextFunction } from 'express';
 import { User } from '../models/user.schema';
 
-const userGenController = require('../controllers/basic-crud/user.gen-controller');
-const helper = require('../utilities/helper');
+import * as userGenController from '../controllers/basic-crud/user.gen-controller';
+import * as helper from '../utilities/helper';
+
 const router: Router = express.Router();
 
 

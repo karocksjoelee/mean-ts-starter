@@ -3,14 +3,14 @@ import * as http from 'http';
 import * as figlet from 'figlet';
 import * as mongoose from 'mongoose';
 import * as debug from 'debug';
+import * as helper from '../utilities/helper';
+import * as swaggerCodeGen from '../utilities/code-generator/swagger-json';
 
 import { Request, Response, Application } from 'express';
 import { LogType } from '../utilities/interfaces';
 
-const helper = require('../utilities/helper');
 const config = require('../../config');
 const app: Application = require('../app');
-const swaggerCodeGen = require('../utilities/code-generator/swagger-json');
 debug(`${config.name.toLowerCase()}:server`);
 
 // * Get port from environment and store in Express.

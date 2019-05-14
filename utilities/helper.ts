@@ -1,29 +1,29 @@
 import { LogType } from './interfaces';
 import { Response } from 'express';
+import chalk from 'chalk';
 
-const chalk = require('chalk');
 const err = chalk.red.bold;
 const suc = chalk.green.bold;
 const dev = chalk.magenta.bold;
 const warn = chalk.yellow.bold;
 
-export const logErr = function(msg: string) {
+export function logErr(msg: string) {
   console.log(err(objectStringify(msg)));
 };
 
-export const logSuc = function(msg: string) {
+export function logSuc(msg: string) {
   console.log(suc(objectStringify(msg)));
 };
 
-export const logWarn = function(msg: string) {
+export function logWarn(msg: string) {
   console.log(warn(objectStringify(msg)));
-};
+}
 
-export const logDev = function(msg: string) {
+export function logDev(msg: string) {
   console.log(dev(objectStringify(msg)));
-};
+}
 
-export const errLogger = function(error: string | Error, source?: string) {
+export function errLogger(error: string | Error, source?: string) {
   if (!source) {
     source = LogType.unknown;
   }
@@ -32,9 +32,9 @@ export const errLogger = function(error: string | Error, source?: string) {
   this.logErr(
     `---------------------------------------------------------------------`
   );
-};
+}
 
-export const rejectHandler = function(res: Response, error: any) {
+export function rejectHandler(res: Response, error: any) {
   if (error.status) {
     res.status(error.status).send({
       name: error.name,
@@ -46,9 +46,9 @@ export const rejectHandler = function(res: Response, error: any) {
       message: error.message
     });
   }
-};
+}
 
-export const removeFileExt = function(filename: string) {
+export function removeFileExt(filename: string) {
   if (typeof filename !== 'string') {
     this.logErr('[ HELPER ][ RemoveFileExt ] Input is not a string');
     return filename;
@@ -56,7 +56,7 @@ export const removeFileExt = function(filename: string) {
   return this.upperFL(filename.slice(0, filename.indexOf('.')));
 };
 
-export const upperFL = function(filename: string) {
+export function upperFL(filename: string) {
   if (typeof filename !== 'string') {
     this.logErr('[ HELPER ][ UpperFL ] Input is not a string');
     return filename;
@@ -64,16 +64,16 @@ export const upperFL = function(filename: string) {
   return filename.charAt(0).toUpperCase() + filename.slice(1);
 };
 
-export const lowerFL = function(filename: string) {
+export function lowerFL(filename: string) {
   if (typeof filename !== 'string') {
     this.logErr('[ HELPER ][ LowerFL ] Input is not a string');
     return filename;
   }
   return filename.charAt(0).toLowerCase() + filename.slice(1);
-};
+}
 
 // * Normalize a port into a number, string, or false.
-export const normalizePort = function(val: any) {
+export function normalizePort(val: any) {
   const port = parseInt(val, 10);
 
   if (isNaN(port)) {
@@ -87,7 +87,7 @@ export const normalizePort = function(val: any) {
   }
 
   return false;
-};
+}
 
 function objectStringify(string: any) {
   if (typeof string === 'object') {

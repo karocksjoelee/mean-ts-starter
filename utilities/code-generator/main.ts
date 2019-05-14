@@ -1,11 +1,13 @@
 import { LogType, APIEndPoint } from '../interfaces';
 
-const helper = require('../helper');
-const fs = require('fs');
-const path = require('path');
+import * as helper from '../helper';
+import * as fs from 'fs';
+import * as path from 'path';
+import * as mongoController from './mongo.controller';
+
 const codeGenConfig = require('../../../config.json')['code-gen'];
 const schemas: any = {};
-const mongoController = require('./mongo.controller');
+
 const strategyMap: any = {
   'mongo-crud-controller': (mongoSchemas: any) => {
     return mongoController.generate(mongoSchemas);

@@ -1,10 +1,9 @@
 import { LogType } from '../interfaces';
+import * as helper from '../helper';
+import * as fs from 'fs';
+import * as path from 'path';
 
-const helper = require('../helper');
-const fs = require('fs');
-const path = require('path');
-
-module.exports.generate = function(schemas: any) {
+export function generate(schemas: any) {
   helper.logDev(`${LogType.codeGen} Generate Mongo Controller ...`);
   for (let schemaName in schemas) {
     if (schemas.hasOwnProperty(schemaName)) {
@@ -26,6 +25,7 @@ function writeControllerFile(schemaName: string, schemaObject: any) {
   return `import { ${schemaNameUpperFL} } from '../../models/${schemaNameLowerFL}.schema';
 import { Error } from 'mongoose';
 import { LogType, MongoMethod } from '../../utilities/interfaces';
+import * as help from '../../utilities/helper';
 
 const helper = require('../../utilities/helper');
 const User = require('../../models/user.schema');
@@ -44,7 +44,7 @@ function createController(schemaName: string, schemaObject: any) {
   const schemaNameUpperFL = helper.upperFL(schemaName);
   const schemaNameLowerFL = schemaName;
   return `
-module.exports.create = function(${schemaNameLowerFL}Object: ${schemaNameUpperFL}) {
+export function create(${schemaNameLowerFL}Object: ${schemaNameUpperFL}) {
   return new Promise((resolve, reject) => {
     const newData = new ${schemaNameUpperFL} ({
 ${schemaAssign(`${schemaNameLowerFL}Object`, schemaObject)}
@@ -66,7 +66,7 @@ function getAllController(schemaName: string) {
   const schemaNameUpperFL = helper.upperFL(schemaName);
   const schemaNameLowerFL = schemaName;
   return `
-module.exports.getAll = function() {
+export function getAll() {
   return new Promise((resolve, reject) => {
     ${schemaNameUpperFL}.find({}, (err: Error, ${schemaNameLowerFL}s: ${schemaNameUpperFL}[]) => {
       if (err) {
@@ -85,7 +85,7 @@ function getOneController(schemaName: string) {
   const schemaNameUpperFL = helper.upperFL(schemaName);
   const schemaNameLowerFL = schemaName;
   return `
-module.exports.getOneById = function(${schemaNameLowerFL}Id: string) {
+export function getOneById(${schemaNameLowerFL}Id: string) {
   return new Promise((resolve, reject) => {
     ${schemaNameUpperFL}.findOne({_id: ${schemaNameLowerFL}Id}, (err: Error, ${schemaNameLowerFL}: ${schemaNameUpperFL}) => {
       if (err) {
@@ -104,7 +104,7 @@ function updateController(schemaName: string) {
   const schemaNameUpperFL = helper.upperFL(schemaName);
   const schemaNameLowerFL = schemaName;
   return `
-module.exports.update = function(${schemaNameLowerFL}Id: string, ${schemaNameLowerFL}Object: ${schemaNameUpperFL}) {
+export function update(${schemaNameLowerFL}Id: string, ${schemaNameLowerFL}Object: ${schemaNameUpperFL}) {
   return new Promise((resolve, reject) => {
     ${schemaNameUpperFL}.findOneAndUpdate(${schemaNameLowerFL}Id, ${schemaNameLowerFL}Object, {new: true}, (err: Error, updated${schemaNameUpperFL}: ${schemaNameUpperFL}) => {
       if (err) {
@@ -123,7 +123,7 @@ function deleteController(schemaName: string) {
   const schemaNameUpperFL = helper.upperFL(schemaName);
   const schemaNameLowerFL = schemaName;
   return `
-module.exports.deleteOneById = function(${schemaNameLowerFL}Id: string) {
+export function deleteOneById(${schemaNameLowerFL}Id: string) {
   return new Promise((resolve, reject) => {
     ${schemaNameUpperFL}.findByIdAndRemove(${schemaNameLowerFL}Id, (err: Error, deleted${schemaNameUpperFL}: ${schemaNameUpperFL}) => {
       if (err) {
