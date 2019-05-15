@@ -1,9 +1,12 @@
-import { LogType, APIEndPoint } from '../interfaces';
 
+// * Module Dependencies
 import * as helper from '../helper';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as mongoController from './mongo.controller';
+
+// * Interfaces
+import { LogType } from '../interfaces';
 
 const codeGenConfig = require('../../../config.json')['code-gen'];
 const schemas: any = {};
@@ -23,6 +26,7 @@ const strategyMap: any = {
   }
 };
 
+helper.logDev(`${LogType.codeGen} Code Generator Running ...`);
 
 fs.readdir(path.join(__dirname, '../../models'), (err: any, files: Array<string>) => {
   if (err) {
@@ -41,4 +45,4 @@ fs.readdir(path.join(__dirname, '../../models'), (err: any, files: Array<string>
 });
 
 
-helper.logDev(`${LogType.codeGen} Code Generator Running ....`);
+

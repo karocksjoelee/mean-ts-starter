@@ -1,7 +1,10 @@
-import { LogType } from '../interfaces';
+// * Module Dependencies
 import * as helper from '../helper';
 import * as fs from 'fs';
 import * as path from 'path';
+
+// * Interfaces
+import { LogType } from '../interfaces';
 
 export function generate(schemas: any) {
   helper.logDev(`${LogType.codeGen} Generate Mongo Controller ...`);

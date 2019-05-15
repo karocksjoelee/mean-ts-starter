@@ -6,10 +6,12 @@ import * as debug from 'debug';
 import * as helper from '../utilities/helper';
 import * as swaggerCodeGen from '../utilities/code-generator/swagger-json';
 
+// * Interfaces
 import { Request, Response, Application } from 'express';
 import { LogType } from '../utilities/interfaces';
 
 const config = require('../../config');
+
 const app: Application = require('../app');
 debug(`${config.name.toLowerCase()}:server`);
 
@@ -20,7 +22,6 @@ app.set('port', port);
 // * MongoDB Connection
 // ? https://github.com/Automattic/mongoose/issues/6922#issue-354147871
 mongoose.set('useFindAndModify', false);
-
 mongoose.connect(config.mongoDB.URI, { useNewUrlParser: true });
 mongoose.connection.on('connected', () => {
   helper.logSuc(`${LogType.mongodb} Mongoose connected with ${config.mongoDB.URI}`);

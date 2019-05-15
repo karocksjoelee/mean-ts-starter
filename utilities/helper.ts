@@ -1,6 +1,9 @@
-import { LogType } from './interfaces';
+// * Module Dependencies
 import { Response } from 'express';
 import chalk from 'chalk';
+
+// * Interfaces
+import { LogType } from './interfaces';
 
 const err = chalk.red.bold;
 const suc = chalk.green.bold;
@@ -54,7 +57,7 @@ export function removeFileExt(filename: string) {
     return filename;
   }
   return this.upperFL(filename.slice(0, filename.indexOf('.')));
-};
+}
 
 export function upperFL(filename: string) {
   if (typeof filename !== 'string') {
@@ -62,7 +65,7 @@ export function upperFL(filename: string) {
     return filename;
   }
   return filename.charAt(0).toUpperCase() + filename.slice(1);
-};
+}
 
 export function lowerFL(filename: string) {
   if (typeof filename !== 'string') {

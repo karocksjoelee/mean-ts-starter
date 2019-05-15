@@ -1,11 +1,12 @@
+// * Module Dependencies
 import * as express from 'express';
 import * as _ from 'lodash';
-
-import { Router, Request, Response, NextFunction } from 'express';
-import { User } from '../models/user.schema';
-
 import * as userGenController from '../controllers/basic-crud/user.gen-controller';
 import * as helper from '../utilities/helper';
+
+// * Interfaces
+import { Router, Request, Response, NextFunction } from 'express';
+import { User } from '../models/user.schema';
 
 const router: Router = express.Router();
 

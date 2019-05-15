@@ -1,5 +1,8 @@
-import { LogType, APIEndPoint } from '../interfaces';
+// * Module Dependencies
 import * as helper from '../helper';
+
+// * Interfaces
+import { LogType, APIEndPoint } from '../interfaces';
 
 const codeGenConfig = require('../../../config.json')['code-gen'];
 
@@ -9,7 +12,7 @@ export function generate(allEndPoints: APIEndPoint[]) {
   } else {
     helper.logErr(`${LogType.codeGen} config is set swagger.json generator to false, will not able to generate swagger UI.`);
   }
-};
+}
 
 
 export function getAllEndPoints(routerStacks: any) {
@@ -41,7 +44,7 @@ export function getAllEndPoints(routerStacks: any) {
     }
   });
   return result;
-};
+}
 
 
 function split(thing: any) {
